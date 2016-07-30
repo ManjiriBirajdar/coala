@@ -116,8 +116,8 @@ class PythonDocumentationCommentTest(DocumentationCommentTest):
                                    'Some more foobar-like text.\n')],
             [self.Description(desc='\nA nice and neat way of '
                                    'documenting code.\n'),
-             self.Parameter(name='radius', desc=' The explosion radius.\n')],
-            [self.Description(desc='\nA function that returns 55.\n')],
+             self.Parameter(name='radius', desc=' The explosion radius. ')],
+            [self.Description(desc='A function that returns 55.')],
             [self.Description(desc='\nDocstring with layouted text.\n\n    '
                                    'layouts inside docs are preserved.'
                                    '\nthis is intended.\n')],
@@ -198,3 +198,8 @@ class AssembledDocumentationTest(unittest.TestCase):
                           for doc in parsed_docs]
 
         self.assertEqual([str(doc) for doc in assembled_docs], original)
+
+        docs = "".join(data)
+
+        for assembled_doc in assembled_docs:
+            self.assertIn(assembled_doc.assemble(), docs)
